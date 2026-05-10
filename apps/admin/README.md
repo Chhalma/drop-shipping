@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ShopDrop — Admin Dashboard
 
-## Getting Started
+Private admin panel for managing the ShopDrop drop shipping store.
 
-First, run the development server:
+**Runs on:** `localhost:3002` (dev) / `admin.yourstore.com` (production)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## What's in here
+
+```
+app/
+  (dashboard)/
+    page.tsx                ← Overview (revenue, orders, pending forwarding alerts)
+    products/               ← Product list, add product, edit product
+    orders/                 ← All orders, forwarding status
+    suppliers/              ← Supplier management (Module 2 — stub)
+  api/products/             ← REST API for product CRUD
+  api/auth/                 ← NextAuth routes
+
+modules/
+  products/                 ← Full CRUD (interfaces/models/repository/services/components)
+  orders/                   ← Order management + forward to supplier
+  suppliers/                ← Stub — ready for Module 2
+
+shared/
+  components/layout/        ← Sidebar navigation with teal active states
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Key Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Product management** — add/edit/delete products, set customer price + supplier cost
+- **Margin calculator** — shows your profit per product live as you type
+- **Order dashboard** — highlights paid orders waiting to be forwarded to supplier
+- **Forwarding workflow** — mark orders as forwarded, enter tracking numbers
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment Variables
 
-## Learn More
+Copy `.env.local.example` to `.env.local` and fill in:
 
-To learn more about Next.js, take a look at the following resources:
+```
+DATABASE_URL=
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=http://localhost:3002
+ADMIN_EMAIL=
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Run
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+pnpm dev        # starts on localhost:3002
+```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> Run from the monorepo root with `pnpm dev` to start both apps together.
